@@ -44,12 +44,22 @@
 	
 		<div id="pageContent" class="entry center-page page-page">
   
-
- <form method="POST" action="http://formspree.io/gravemint@outlook.com">
-  <input type="text" name="Name" placeholder="Your email">
-  <textarea name="message" placeholder="Your message"></textarea>
-  <button type="submit">Send</button>
+<form id="contact-form">
+  <input type="hidden" name="_subject" value="Contact Submission">
+  <div>
+    <input type="text" name="name" id="name" placeholder="Your Name" />
+  </div>
+  <div>
+    <input type="text" name="email" id="email" placeholder="Your Email" />
+  </div>
+  <div>
+    <textarea rows="1" name="message" id="message" placeholder="Message"></textarea>
+  </div>
+	<div>
+    <div id="contact-submit">Submit</div>
+  </div>
 </form>
+                    
 		</div>
   
 
@@ -57,10 +67,7 @@
 	</div><!--END AJAX CONTAINER-->
 	
 
-	<!--FULL SEARCH BAR-->
-	<form role="search" method="get" id="full-search" action="http://themes.themolitor.com/vysual/">
-		<input type="text" value="Search Site..." onfocus="this.value='';" name="s" id="big-input" />
-	</form>
+	
 		
 	<!--AUDIO PLAYER-->
 	<div id="audioControl" class="paused">
