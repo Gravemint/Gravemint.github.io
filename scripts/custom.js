@@ -70,7 +70,7 @@ if (!headerImage.length >= 1 ) {
 	headerImages.background({
 		source: {
 			poster: "images/bridge.jpg",
-			mp4: 	"videos/magic-cloth-demo.mp4"
+			video: 	"//www.youtube.com/embed/X1WBlDrklmk"
 		}
 	});
 }
