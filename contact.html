@@ -51,39 +51,25 @@
   </header>
 
   <div class="contact">
+  <!--FORMSPREE-->
+  <form id="contactform" method="POST">
+    <div class="form-group">
+        <div class="input-group">
+		<p class="entry-title">Your email</p>
+            <span class="input-group-addon"></span>
+            <input name="form-email-input" type="email" name="_replyto" class="form-control" required>
+                    </div>
+                
+                    <div class="input-group">
+					<p class="entry-title">Message</p>
+                        <span class="input-group-addon"></span>
+                        <textarea name="form-description-input" name="description" class="form-control" rows="4" cols="60" required></textarea>
+                    </div>
+                    <input type="text" name="_gotcha" style="display:none" />
+                    <button id="sendMessage">Send</button>
+                        </div>
   
-    <div class="row">
-      <div class="col-lg-6">
-        <form role="form" action="http://formspree.io/gravemint@outlook.com">
-          <input type="hidden" name="_next" value="//site.io/thanks.html" />
-          <input type="hidden" name="_subject" value="New submission!" />
-          <input type="text" name="_gotcha" style="display:none" />
-
-          <div class="form-group">
-            <label for="InputName">Your Name</label>
-            <input type="text" class="form-control" name="name" id="InputName" placeholder="Enter Name" required>
-          </div>
-          <div class="form-group">
-            <label for="InputEmail">Your Email</label>
-
-            <input type="email" class="form-control" id="InputEmail" name="_replyto" placeholder="Enter Email" required>
-          </div>
-          <div class="form-group">
-            <label for="InputMessage">Message</label>
-
-            <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="InputReal">What is 4+3? (Simple Spam Checker)</label>
-            <input type="text" class="form-control" name="InputReal" id="InputReal" required>
-          </div>
-          <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right"> 
-      </form>
-    </div>
-    <hr class="hidden-lg">
-    <div class="col-lg-5 col-md-offset-1">
-    </div>
-  </div>
+    <!--END FORMSPREE-->
 </main>         
 		</div>
   
