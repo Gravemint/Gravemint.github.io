@@ -1,28 +1,28 @@
-//when the page is ready
 $(document).ready(function() {
-
-  //when the contact form button is clicked
-  $("#contact-submit").click(function(e) {
-    //prevent default actions when pressing button
-    e.preventDefault();
+  $('#contact-form').submit(function(e) {
+      var name = $('#inputName')
+      var email = $('#inputEmail')
+      var message = $('#inputMessage')
     
-    //change the contact button text
-    $("#contact-submit").text("Submitting..");
+      if(name.val() == "" || email.val() == "" || message.val() == "") {
+        $('.submit-fail').fadeToggle(400);
+        return false;
+      }
+      else {
+        $.ajax({
+          method: 'POST',
+          url: '//formspree.io/gravemint@outlook.com',
+          data: $('#contact-form').serialize(),
+          datatype: 'json'
+        });
+        e.preventDefault();
+        $(this).get(0).reset();
+        $('.submit-success').fadeToggle(400);
+      }
+    });
   
-    //HTTP POST REQUEST to Formspree
-    $.ajax({
-      url: "https://formspree.io/gravemint@outlook.com", 
-      method: "POST",
-      data: $('#contact-form').serialize(), //takes all items in form
-      dataType: "json" // the data structure type
-    })
-    //if it is successful
-    .success(function(e){
-      //where you want the redirect to go
-      window.location.replace("/thankyou.html");
-    })
-    //reset the submit button if the submission fails
-    .error(function(e){ $("#contact-submit").text("Submit"); });
-
-  });
+  $('.submit-fail, .submit-success').click(function() {
+    $(this).hide();
+  })
 });
+  
