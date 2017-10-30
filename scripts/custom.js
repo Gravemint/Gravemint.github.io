@@ -51,15 +51,15 @@ function runHeader(){
 		clearInterval(headerinterval);
 	}
 }
-	
-	
+
+
 //////////////////////////////
 //RUN SCRIPTS AFTER AJAX LOADS -- ajaxComplete
 //////////////////////////////
 jQuery(document).ajaxComplete(function() {
 	bodyCheck();
 	runReviews();
-	runHeader(); 
+	runHeader();
 });
 
 
@@ -74,8 +74,8 @@ if (!headerImage.length >= 1 ) {
 		}
 	});
 }
-	
-	
+
+
 ///////////////////
 //LOADING ANIMATION
 ///////////////////
@@ -108,12 +108,12 @@ function loadingBg(){
 	var activeBgUrl = jQuery('.activeBg').children('img').attr('src'),
 		videoBgUrl = jQuery('.video-image-container').children('img').attr('src'),
 		galleryBgUrl = jQuery('.activeImg').children('img').attr('src'),
-		pageBgUrl = jQuery('.page-image-container').children('img').attr('src');	
-	
+		pageBgUrl = jQuery('.page-image-container').children('img').attr('src');
+
 	if 		(typeof pageBgUrl != 'undefined') 		loadingPage.add(fullSearch).css({backgroundImage:'url('+pageBgUrl+')'});
 	else if (typeof galleryBgUrl != 'undefined') 	loadingPage.add(fullSearch).css({backgroundImage:'url('+galleryBgUrl+')'});
-	else if (typeof videoBgUrl != 'undefined') 		loadingPage.add(fullSearch).css({backgroundImage:'url('+videoBgUrl+')'}); 
-	else if (typeof activeBgUrl != 'undefined') 	loadingPage.add(fullSearch).css({backgroundImage:'url('+activeBgUrl+')'}); 
+	else if (typeof videoBgUrl != 'undefined') 		loadingPage.add(fullSearch).css({backgroundImage:'url('+videoBgUrl+')'});
+	else if (typeof activeBgUrl != 'undefined') 	loadingPage.add(fullSearch).css({backgroundImage:'url('+activeBgUrl+')'});
 	else 											loadingPage.add(fullSearch).css({backgroundImage:'none'});
 }
 
@@ -136,74 +136,74 @@ jQuery(document).keyup(function(e) {
 /////////////////////////
 function widgetPos(){
 	sidebarWidgets.css({ marginTop : "0px" });
-	
+
 	var sidebarH = sidebar.outerHeight(),
 		widgetTop = sidebarWidgets.offset().top,
 		widgetH = sidebarWidgets.outerHeight(),
 		extraSpace = ( sidebarH - ( widgetTop + widgetH ) );
-	
+
 	if( extraSpace > 0 ) sidebarWidgets.css({ marginTop : extraSpace + "px" });
 }
 
-    
+
 //////////////////
 //BODY CLASS STUFF -- bodyCheck
 //////////////////
-function bodyCheck(){	
+function bodyCheck(){
 
 	//UPDATE BODY CLASS
 	var newClass = jQuery('#page-info').attr('class');
 	theBody.removeClass().addClass(newClass);
-	
+
 	//OS CHECK
 	mobileCheck();
 	osCheck();
-	
+
 	//PLAY/PAUSE VIDEO/SLIDESHOW BACKGROUND
 	if( jQuery('.page-image-container').length > 0 || theBody.hasClass('page-template-page-videos') || theBody.hasClass('page-template-page-gallery') ) {
 		//PAUSE BG SLIDESHOW
 		theBody.addClass('stopSlideshow');
-		
+
 		//PAUSE BG VIDEO
 		pauseBgVideo();
 	} else {
 		//PLAY BG VIDEO
 		playBgVideo();
-	}	
+	}
 }
 
 
 /////////////////////////////
 //AJAX -- CATEGORY PAGINATION -- load-more click
 /////////////////////////////
-jQuery(document).on('click','#load-more',function(){  
- 
+jQuery(document).on('click','#load-more',function(){
+
 	if (!jQuery('#load-more').hasClass(".loading")) {
-		
+
 		//VAR SETUP
 	   	var thisLink = jQuery('#load-more a'),
 	   		url = thisLink.attr('href');
-		
+
 		//SHOW LOADING TEXT
-		thisLink.parent().addClass('loading');		
-		
+		thisLink.parent().addClass('loading');
+
 		//ADD DIV FOR NEW ITEMS
 		jQuery('.scroll-this').append('<div id="newStuff"></div>');
-		
+
 		var newStuff = jQuery('#newStuff');
-		
+
 		//LOAD NEW ITEMS
 		newStuff.hide().load(url + " .scroll-this > div",function(){
-		
+
 			//WAIT FOR IMAGES TO LOAD
 			newStuff.waitForImages(function() {
-			
+
 				//REMOVE OLD LINK
 				jQuery('.loading').remove();
-				
+
 				//UNWRAP
 				jQuery('#newStuff > div').unwrap().hide().fadeIn(300);
-				
+
 				//RUN FUNCTIONs
 				postsCenter();
 				postOverflowCheck();
@@ -212,7 +212,7 @@ jQuery(document).on('click','#load-more',function(){
 			});
 		});
     }//END CHECK
-    
+
     return false;
 });
 
@@ -221,75 +221,75 @@ jQuery(document).on('click','#load-more',function(){
 //AJAX -- SEARCH RESULTS STUFF -- full-search submit
 //////////////////////////////
 jQuery(document).on('submit',"#full-search",function(){
-   
+
    //AJAX CHECK
    if(theBody.hasClass('ajax-on')){
-   
+
 	   //VAR SETUP
 	   	var searchVal = bigInput.val(),
 	   		adjustedVal = encodeURIComponent(searchVal),
 	   		url = siteUrl + '?s=' + adjustedVal;
-	   		
+
 	   	if(jQuery.trim(bigInput.val()).length > 0) {
-	   	
+
 	   		//LOSE FOCUS
 	   		bigInput.blur();
-			
+
 			//SCROLL TO TOP
 			jQuery("html,body").stop().animate({scrollTop:0},1500);
-			
+
 			//UPDATE LOADING BG
 			loadingBg();
-		
+
 			//LOADING NOTICE
 			loadingPage.stop(true,true).fadeIn(500,function(){
-			
+
 				//PAUSE BG VIDEO
 				pauseBgVideo();
-			
+
 				//CLOSE SEARCH
 				closeSearch();
-			
+
 				//UPDATE URL
 				if(url!=window.location && history.pushState) window.history.pushState({path:url},'',url);
-				
+
 				//ADD/REMOVE THE AJAX CONTAINER
 				jQuery("#ajax-content").remove();
-				
+
 				contentContainer.append('<div id="load-here"></div>');
-			
+
 				var loadHere = jQuery('#load-here');
-			
+
 				//POSITION THE AJAX CONTAINER
 				loadHere.load(url + " #ajax-content",null, function() {
-				
-					//UPDATE PAGE TITLE						
+
+					//UPDATE PAGE TITLE
 					document.title = jQuery('#page-info').data('page-title');
-				
+
 					//PLAY BG VIDEO
 					playBgVideo();
-				
+
 					//CHECK IF CONTENT EXISTS
-					if(loadHere.html().length > 0){	
-					
+					if(loadHere.html().length > 0){
+
 						//WAIT FOR IMAGES TO LOAD
 						loadHere.waitForImages(function() {
-			
+
 			    			//REMOVE WRAPPER
 				    		loadHere.replaceWith(loadHere.html());
-				    		
+
 				    		//RESET SCROLL POSITION
 							jQuery('.scroll-wrapper').scrollLeft(0);
 							jQuery('.scroll-this > div').scrollTop(0);
-				    		
+
 				    		//LOADING NOTICE
 				    		loadingPage.stop().fadeOut(800,function(){
 				    			loadingBg();
 				    		});
-				    	
+
 				    		//REMOVE CURRENT MENU CLASS
 				   			jQuery('.current-menu-item').removeClass('current-menu-item');
-							
+
 							//RUN FUNCTION
 							pageCenter();
 							postsCenter();
@@ -298,30 +298,30 @@ jQuery(document).on('submit',"#full-search",function(){
 							letMyPeopleScroll();
 							scrollOnce();
 						});
-						
+
 					} else {
-					
+
 						//LOADING NOTICE
 			    		loadingPage.stop().fadeOut(800);
-			    		
+
 			    		//404 ERROR
 			    		alert('Nothing found.');
-					
+
 					}//END CONTENT CHECK
 		   		});//END AJAX LOAD
 			});//END LOADING FADE IN
-			
+
 			return false;
-		
+
 		} else {
-			
+
 			//EMPTY ALERT
 			alert('Search field is empty.');
-			
+
 			return false;
-		
+
 		}//END SEARCH VALUE CHECK
-	
+
 	}//END AJAX ON CHECK
 });
 
@@ -330,80 +330,80 @@ jQuery(document).on('submit',"#full-search",function(){
 //AJAX -- GENERAL CLICK STUFF -- a click
 /////////////////////////////
 jQuery(document).on('click',"a",function(){
-   
+
    //VAR SETUP
    	var thisLink = jQuery(this),
    		thisParent = thisLink.parent().attr('id'),
    		url = thisLink.attr('href');
-	
+
 	//DETERMINE IF PROPER SITE LINK
 	if(thisLink.attr('id') != 'link-rss' && url.indexOf(siteUrl) == 0 && thisParent != "load-more" && url.indexOf("#") == -1 && url.indexOf("wp-admin") == -1 && url.indexOf(".jpeg") == -1 && url.indexOf(".png") == -1 && url.indexOf(".gif") == -1 && url.indexOf(".jpg") == -1 && url.indexOf(".pdf") == -1 && url.indexOf("mailto") == -1 && theBody.hasClass('ajax-on')){
-		
+
 		//CLOSE SIDEBAR
 		sideClose();
-		
+
 		//UPDATE LOADING BG
 		loadingBg();
-			
+
 		//LOADING NOTICE
 		loadingPage.stop(true,true).fadeIn(500,function(){
-		
+
 			//PAUSE BG VIDEO
 			pauseBgVideo();
-		
+
 			//CLOSE SEARCH
 			closeSearch();
-		
+
 			//UPDATE URL
 			if(url!=window.location && history.pushState) window.history.pushState({path:url},'',url);
-			
+
 			//ADD/REMOVE THE AJAX CONTAINER
 			jQuery("#ajax-content").remove();
-			
+
 			contentContainer.append('<div id="load-here"></div>');
-		
+
 			var loadHere = jQuery('#load-here');
-		
+
 			//POSITION THE AJAX CONTAINER
 			loadHere.load(url + " #ajax-content",null, function() {
-			
-				//UPDATE PAGE TITLE						
+
+				//UPDATE PAGE TITLE
 				document.title = jQuery('#page-info').data('page-title');
-			
+
 				//PLAY BG VIDEO
 				playBgVideo();
-			
+
 				//CHECK IF CONTENT EXISTS
-				if(loadHere.html().length > 0){		
-				
+				if(loadHere.html().length > 0){
+
 					//WAIT FOR IMAGES TO LOAD
 					loadHere.waitForImages(function() {
-	    	
+
 		    			//REMOVE WRAPPER
 			    		loadHere.replaceWith(loadHere.html());
-			    		
+
 			    		//RESET SCROLL POSITION
 						jQuery('.scroll-wrapper').scrollLeft(0);
 						jQuery('.scroll-this > div').scrollTop(0);
-			    		
+
 			    		//LOADING NOTICE
 			    		loadingPage.stop().fadeOut(800,function(){
 			    			loadingBg();
 			    		});
-			    		
+
 			    		//UPDATE CURRENT MENU ITEM
 			    		if(!thisLink.hasClass('pagenav')){
 			    			//REMOVE CURRENT CLASS
 			   				jQuery('.current-menu-item').removeClass('current-menu-item');
-			   				
+
 			   				//CHECK IF URL MATCHES MENU ITEM URL
 							jQuery('#dropmenu a').each(function(){
 								if(jQuery(this).attr('href') == url){
 									jQuery(this).parent().addClass('current-menu-item');
-								}				
+								}
 							});
 						}
-						
+
 						//RUN FUNCTION
 						pageCenter();
 						postsCenter();
@@ -412,19 +412,19 @@ jQuery(document).on('click',"a",function(){
 						letMyPeopleScroll();
 						scrollOnce();
 					});
-					
+
 				} else {
-				
+
 					//LOADING NOTICE
 		    		loadingPage.stop().fadeOut(800);
-		    		
+
 		    		//404 ERROR
 		    		alert('Nothing found.');
-		    		
+
 				}//END CONTENT CHECK
 	   		});//END AJAX LOAD
    		});//END LOADING FADE IN
-		
+
 		return false;
 	}//END IF PROPER SITE LINK
 });
@@ -437,73 +437,73 @@ theWindow.on("popstate", function(e) {
   	//VAR SETUP
    	var thisLink = location.href,
    		url = location.href;
-	
+
 	//DETERMINE IF PROPER SITE LINK
 	if(url.indexOf(siteUrl) == 0 && url.indexOf("#") == -1 && url.indexOf("wp-admin") == -1 && url.indexOf(".jpeg") == -1 && url.indexOf(".png") == -1 && url.indexOf(".gif") == -1 && url.indexOf(".jpg") == -1 && url.indexOf(".pdf") == -1 && url.indexOf("mailto") == -1 && theBody.hasClass('ajax-on')){
-		
+
 		//CLOSE SIDEBAR
 		sideClose();
-		
+
 		//UPDATE LOADING BG
 		loadingBg();
-			
+
 		//LOADING NOTICE
 		loadingPage.stop(true,true).fadeIn(500,function(){
-		
+
 			//PAUSE BG VIDEO
 			pauseBgVideo();
-		
+
 			//CLOSE SEARCH
 			closeSearch();
-		
+
 			//UPDATE URL
 			if(url!=window.location && history.pushState) window.history.pushState({path:url},'',url);
-			
+
 			//ADD/REMOVE THE AJAX CONTAINER
 			jQuery("#ajax-content").remove();
-			
+
 			contentContainer.append('<div id="load-here"></div>');
-		
+
 			var loadHere = jQuery('#load-here');
-		
+
 			//POSITION THE AJAX CONTAINER
 			loadHere.load(url + " #ajax-content",null, function() {
-			
-				//UPDATE PAGE TITLE						
+
+				//UPDATE PAGE TITLE
 				document.title = jQuery('#page-info').data('page-title');
-			
+
 				//PLAY BG VIDEO
 				playBgVideo();
-			
+
 				//CHECK IF CONTENT EXISTS
-				if(loadHere.html().length > 0){		
-				
+				if(loadHere.html().length > 0){
+
 					//WAIT FOR IMAGES TO LOAD
 					loadHere.waitForImages(function() {
-	    	
+
 		    			//REMOVE WRAPPER
 			    		loadHere.replaceWith(loadHere.html());
-			    		
+
 			    		//RESET SCROLL POSITION
 						jQuery('.scroll-wrapper').scrollLeft(0);
 						jQuery('.scroll-this > div').scrollTop(0);
-			    		
+
 			    		//LOADING NOTICE
 			    		loadingPage.stop().fadeOut(800,function(){
 			    			loadingBg();
 			    		});
-			    		
-			    		
+
+
 		    			//REMOVE CURRENT CLASS
 		   				jQuery('.current-menu-item').removeClass('current-menu-item');
-		   				
+
 		   				//CHECK IF URL MATCHES MENU ITEM URL
 						jQuery('#dropmenu a').each(function(){
 							if(jQuery(this).attr('href') == url){
 								jQuery(this).parent().addClass('current-menu-item');
-							}				
+							}
 						});
-					
+
 						//RUN FUNCTION
 						pageCenter();
 						postsCenter();
@@ -512,19 +512,19 @@ theWindow.on("popstate", function(e) {
 						letMyPeopleScroll();
 						scrollOnce();
 					});
-					
+
 				} else {
-				
+
 					//LOADING NOTICE
 		    		loadingPage.stop().fadeOut(800);
-		    		
+
 		    		//404 ERROR
 		    		alert('Nothing found.');
-		    		
+
 				}//END CONTENT CHECK
 	   		});//END AJAX LOAD
    		});//END LOADING FADE IN
-		
+
 		return false;
 	}//END IF PROPER SITE LINK
 });
@@ -550,7 +550,7 @@ jQuery(document).on('click','#link-search',function(){
 		theBody.addClass('search-open');
 		if( !theBody.hasClass('mobile-device') ) jQuery("html,body").stop().animate({scrollTop:0},1500);
 	}
-	
+
 	return false;
 });
 //FORM BG CLICK
@@ -598,11 +598,11 @@ jQuery(document).on('mouseleave','#slide-left',function(){
 //OVERFLOW CHECK
 function postOverflowCheck(){
 	var posts = jQuery('.posts-container .post, .posts-container .page');
-	
+
 	//RESET
 	jQuery('.scroll-notice').remove();
 	posts.removeClass('overflowin');
-	
+
 	posts.each(function(){
 		var thisPost = jQuery(this);
 		if(thisPost.get(0).scrollHeight > (thisPost.height() + 3) && !thisPost.hasClass('scrolled')){
@@ -615,20 +615,20 @@ jQuery(document).on('click','.scroll-notice',function(){
 	var thisNotice = jQuery(this),
 		thisPost = thisNotice.parent(),
 		thisPostH = thisPost.height() * .6;
-	
+
 	thisNotice.stop(true,true).fadeOut(500);
 	thisPost.stop(true,true).animate({scrollTop:'+='+thisPostH+'px'},500);
-	
+
 });
 //SCROLL NOTICE SCROLL
 function scrollOnce(){
 	jQuery(".posts-container .post, .posts-container .page").one('scroll', function() {
 		var thisPost = jQuery(this),
 			thisNotice = thisPost.children('.scroll-notice');
-		
+
 		thisPost.addClass('scrolled');
 		thisNotice.stop().fadeOut(500);
-		
+
 	});
 }
 //LEFT/RIGHT SCROLL HIDE/SHOW
@@ -639,7 +639,7 @@ function letMyPeopleScroll(){
 		jQuery('.slide-nav').stop(true,true).fadeOut(300);
 	}
 }
-      
+
 
 ///////////////
 //GALLERY STUFF -- galleryCheck
@@ -647,9 +647,9 @@ function letMyPeopleScroll(){
 function galleryCheck(){
 
 	galleryImg = jQuery('.gallery-image');
-		
+
 	if(galleryImg.length > 0) {
-	
+
 		//VAR SETUP
 		nextImg = jQuery('#nextImg');
 		prevImg = jQuery('#prevImg');
@@ -657,17 +657,17 @@ function galleryCheck(){
 		lastImg = galleryImg.last();
 		imageInfo = jQuery('#imgInfo');
 		numberItems = galleryImg.length;
-	
+
 		//ASSIGN ACTIVE IMAGE
 		firstImg.addClass('activeImg');
-		
+
 		//HIDE ALL OTHER IMAGES
 		galleryImg.not('.activeImg').hide();
-		
+
 		var imgTitle = firstImg.data('imgtitle'),
 			imgCaption = firstImg.data('caption'),
 			itemNumber = firstImg.index() + 1;
-			
+
 		if(imgTitle.length > 0 && imgCaption.length > 0){
 			imageInfo.html("<small>" + itemNumber + " / " + numberItems + "</small><h2>" + imgTitle + "</h2><p>"+imgCaption+"</p>").fadeIn(150);
 		} else if(imgTitle.length > 0){
@@ -679,62 +679,62 @@ function galleryCheck(){
 jQuery(document).on('click','#nextImg',function(){
 	var activeImg = jQuery('.activeImg'),
 		nextLi = activeImg.next();
-		
+
 	if(nextLi.length > 0){
 		activeImg.removeClass('activeImg');
 		nextLi.addClass('activeImg').stop(true,true).fadeIn(800,function(){
 			activeImg.hide();
 		});
-		
+
 		var imgTitle = nextLi.data('imgtitle'),
 			imgCaption = nextLi.data('caption'),
 			itemNumber = nextLi.index() + 1;
-		
+
 	} else {
 		activeImg.removeClass('activeImg');
 		firstImg.addClass('activeImg').stop(true,true).fadeIn(800,function(){
 			activeImg.hide();
 		});
-		
+
 		var imgTitle = firstImg.data('imgtitle'),
 			imgCaption = firstImg.data('caption'),
 			itemNumber = firstImg.index() + 1;
-	}	
-	
-	//CHANGE TITLE INFO	
+	}
+
+	//CHANGE TITLE INFO
 	if(imgTitle.length > 0 && imgCaption.length > 0){
 		imageInfo.html("<small>" + itemNumber + " / " + numberItems + "</small><h2>" + imgTitle + "</h2><p>"+imgCaption+"</p>");
 	} else if(imgTitle.length > 0){
 		imageInfo.html("<small>" + itemNumber + " / " + numberItems + "</small><h2>" + imgTitle + "</h2>");
-	}	
-});		
+	}
+});
 //PREV CONTROLS
 jQuery(document).on('click','#prevImg',function(){
 	var activeImg = jQuery('.activeImg'),
 		prevLi = activeImg.prev();
-		
+
 	if(prevLi.length > 0){
 		activeImg.removeClass('activeImg');
 		prevLi.addClass('activeImg').stop(true,true).fadeIn(800,function(){
 			activeImg.hide();
 		});
-		
+
 		var imgTitle = prevLi.data('imgtitle'),
 			imgCaption = prevLi.data('caption'),
 			itemNumber = prevLi.index() + 1;
-			
+
 	} else {
 		activeImg.removeClass('activeImg');
 		lastImg.addClass('activeImg').stop(true,true).fadeIn(800,function(){
 			activeImg.hide();
 		});
-		
+
 		var imgTitle = lastImg.data('imgtitle'),
 			imgCaption = lastImg.data('caption'),
 			itemNumber = lastImg.index() + 1;
 	}
-	
-	//CHANGE TITLE INFO	
+
+	//CHANGE TITLE INFO
 	if(imgTitle.length > 0 && imgCaption.length > 0){
 		imageInfo.html("<small>" + itemNumber + " / " + numberItems + "</small><h2>" + imgTitle + "</h2><p>"+imgCaption+"</p>");
 	} else if(imgTitle.length > 0){
@@ -742,7 +742,7 @@ jQuery(document).on('click','#prevImg',function(){
 	}
 });
 
-	
+
 ///////////////
 //SIDEBAR STUFF -- sideOpen, sideClose
 ///////////////
@@ -767,14 +767,14 @@ function sideClose(){
 jQuery(document).on('click','#menu-control',function(){
 	if( theBody.hasClass('open-sidebar') ) sideClose();
 	else sideOpen();
-});	
+});
 //CLOSE CLICKs
 jQuery(document).on('click','#contentCover',function(){
 	sideClose();
 	return false;
 });
 
-	
+
 /////////////
 //AUDIO STUFF -- playAudio, pauseAudio, playingBar, pauseBar, hoverBar, click/hover, pauseIfPlaying
 /////////////
@@ -818,7 +818,7 @@ if(audioPlayer.length > 0){
 function playingBar(bar) {
   var height = Math.random() * 20 + 3;
   var timing = height * 10;
-  
+
   bar.animate({
       height: height
   }, timing, function() {
@@ -833,16 +833,16 @@ function pauseBar() {
 function hoverBar(bar) {
   var height = Math.random() * 20 + 3;
   var timing = height * 10;
-  
+
   bar.stop(true,true).animate({
       height: height
   }, timing);
 }
 //PAUSE IF PLAYING
 function pauseIfPlaying(){
-	if(audioControl.hasClass('playing')){ 
-		pauseAudio(); 
-		audioControl.addClass('holding'); 
+	if(audioControl.hasClass('playing')){
+		pauseAudio();
+		audioControl.addClass('holding');
 	}
 }
 
@@ -866,36 +866,36 @@ jQuery(document).on('click','.post-video',function(){
 		videoType = thisVideo.data('vidtype'),
 		videoId = thisVideo.data('vidid'),
 		videoContainer = jQuery('.videoContainer');
-		
+
 	jQuery("html,body").stop().animate({scrollTop:0},1500);
-		
+
 	//LOAD PLAYER
 	if(videoType == 'self-video') {
-	
+
 		videoContainer.append('<video class="postVideo selfVid" width="320" height="240" controls autoplay><source src="' + videoId + '" type="video/mp4">Your browser does not support the video tag.</video> ');
-	
+
 	} else if(videoType == 'youtube-video') {
-	
+
 		videoContainer.append('<iframe class="postVideo youTubeVid" src="https://www.youtube.com/embed/' + videoId + '?rel=0&amp;showinfo=0&amp;controls=1&amp;autoplay=1" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
-	
+
 	} else if(videoType == 'vimeo-video') {
-		
+
 		videoContainer.append('<iframe class="postVideo vimeoVid" src="//player.vimeo.com/video/' + videoId + '?autoplay=1&color=ffffff&title=0&byline=0&portrait=0&badge=0" width="500" height="209" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
-		
+
 	}
- 	
+
 	//FADE IN VIDEO
 	videoContainer.stop(true,true).fadeIn(300,function(){
 		//PAUSE BG VIDEO
 		pauseBgVideo();
 	});
-	
+
 	//PAUSE AUDIO IF APPLICABLE
 	pauseIfPlaying();
-	
+
 	//ADD CLASS
 	theBody.addClass('full-screen-video');
-	
+
 	//CLOSE SELF-HOSTED VIDEO WHEN FINISHED
 	if(videoType == 'self-video') {
 		var videoTag = document.getElementsByTagName('video')[0];
@@ -914,36 +914,36 @@ jQuery(document).on('click','.videoLink',function(){
 	var linkId = jQuery(this).attr('id'),
 		videoContainer = jQuery('.videoContainer'),
 		videoId = videoContainer.data('vidid');
-		
+
 	jQuery("html,body").stop().animate({scrollTop:0},1500);
-		
+
 	//LOAD PLAYER
 	if(videoContainer.hasClass('self-video')) {
-	
+
 		videoContainer.append('<video class="postVideo selfVid" width="320" height="240" controls autoplay><source src="' + videoId + '" type="video/mp4">Your browser does not support the video tag.</video> ');
-	
+
 	} else if(videoContainer.hasClass('youtube-video')) {
-	
+
 		videoContainer.append('<iframe class="postVideo youTubeVid" src="https://www.youtube.com/embed/' + videoId + '?rel=0&amp;showinfo=0&amp;controls=1&amp;autoplay=1" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
-	
+
 	} else if(videoContainer.hasClass('vimeo-video')) {
-		
+
 		videoContainer.append('<iframe class="postVideo vimeoVid" src="//player.vimeo.com/video/' + videoId + '?autoplay=1&color=ffffff&title=0&byline=0&portrait=0&badge=0" width="500" height="209" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>');
-		
+
 	}
- 	
+
 	//FADE IN VIDEO
 	videoContainer.stop(true,true).fadeIn(300,function(){
 		//PAUSE BG VIDEO
 		pauseBgVideo();
 	});
-	
+
 	//PAUSE AUDIO IF APPLICABLE
 	pauseIfPlaying();
-	
+
 	//ADD CLASS
 	theBody.addClass('full-screen-video');
-	
+
 	//CLOSE SELF-HOSTED VIDEO WHEN FINISHED
 	if(videoContainer.hasClass('self-video')) {
 		var videoTag = document.getElementsByTagName('video')[0];
@@ -951,28 +951,28 @@ jQuery(document).on('click','.videoLink',function(){
 		  closeVideo();
 		};
 	}
-		
+
 	return false;
 });
 //CLOSE VIDEO FUNCTION
 function closeVideo(){
 
 	var videoContainer = jQuery('.videoContainer');
-	
+
 	//PLAY BG VIDEO
 	playBgVideo();
-	
+
 	//FADE OUT VIDEO
 	videoContainer.stop(true,true).fadeOut(300,function(){
 		jQuery('.postVideo').remove();
 	});
-	
+
 	//PLAY AUDIO IF APPLICABLE
-	if(audioControl.hasClass('holding')){ 
-		playAudio(); 
-		audioControl.removeClass('holding'); 
+	if(audioControl.hasClass('holding')){
+		playAudio();
+		audioControl.removeClass('holding');
 	}
-	
+
 	theBody.removeClass('full-screen-video');
 }
 //CLOSE VIDEO CLICK
@@ -986,7 +986,7 @@ jQuery(document).on('click','.closeVideo',function(){
 /////////////////
 function mobileCheck(){
 	var mobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
-	
+
 	if(mobile) theBody.addClass('mobile-device');
 }
 mobileCheck();
@@ -1004,9 +1004,9 @@ function osCheck(){
 osCheck();
 
 
-/////////////////////////////		
+/////////////////////////////
 //CONTAINER MARGIN FOR FOOTER -- footerHeight
-/////////////////////////////	
+/////////////////////////////
 function footerHeight(){
 	var footerHeight = footer.outerHeight();
 
@@ -1020,14 +1020,14 @@ function footerHeight(){
 function imageSlideshow(){
 	var firstBg = headerImage.first();
 		activeBg = jQuery('.activeBg');
-	
+
 	if(!activeBg.length > 0){
 		firstBg.addClass('activeBg');
 		var activeBg = firstBg;
 	}
 
 	var nextBg = activeBg.next();
-	
+
 	if(nextBg.length > 0){
 		activeBg.removeClass('activeBg');
 		nextBg.addClass('activeBg').stop(true,true).fadeIn(3000,function(){
@@ -1047,14 +1047,14 @@ function imageSlideshow(){
 function reviewsSlideshow(){
 	var firstReview = jQuery('.review').first();
 		activeReview = jQuery('.activeReview');
-	
+
 	if(!activeReview.length > 0){
 		firstReview.addClass('activeReview');
 		var activeReview = firstReview;
 	}
 
 	var nextReview = activeReview.next();
-	
+
 	if(nextReview.length > 0){
 		activeReview.removeClass('activeReview').stop(true,true).fadeOut(1500,function(){
 			nextReview.addClass('activeReview').stop(true,true).fadeIn(1500);
@@ -1083,14 +1083,14 @@ containerHeight();
 //PAGE CONTENT FUNCTIONS -- pageCenter
 ////////////////////////
 function pageCenter(){
-	var pageContent = jQuery('#pageContent'); 
-	
+	var pageContent = jQuery('#pageContent');
+
 	if(pageContent.length > 0){
 		var pageTop = '-' + (pageContent.outerHeight() / 2) + 'px',
 			pageHeight = pageContent[0].scrollHeight;
-	
+
 		pageContent.css({marginTop:pageTop});
-				
+
 		if(pageHeight > 420){
 			pageContent.addClass('with-scrollbar');
 		} else {
@@ -1106,11 +1106,11 @@ pageCenter();
 /////////////////
 function postsCenter(){
 	var postContent = jQuery('.posts-container');
-	
+
 	if(postContent.length > 0){
 		var postTop = '-' + (postContent.outerHeight() / 2) + 'px';
-	
-		postContent.css({marginTop:postTop});			
+
+		postContent.css({marginTop:postTop});
 	}
 }
 postsCenter();
@@ -1129,13 +1129,13 @@ theWindow.resize(function(){
 	postOverflowCheck();
 	letMyPeopleScroll();
 	widgetPos();
-		
+
 }).load(function(){
 
 	//RESET SCROLL POSITION
 	jQuery('.scroll-wrapper').scrollLeft(0);
 	jQuery('.scroll-this > div').scrollTop(0);
-	
+
 	//LOADING STUFF
 	loadingPage.stop(true,true).fadeOut(800,function(){
 		loadingBg();
@@ -1151,13 +1151,13 @@ theWindow.resize(function(){
 	letMyPeopleScroll();
 	widgetPos();
 	bodyCheck();
-	runHeader(); 
+	runHeader();
 	runReviews();
-	
+
 	//PLAY AUDIO
-	if(!jQuery('body').hasClass('mobile-device')) playAudio();
-		
+	//if(!jQuery('body').hasClass('mobile-device')) playAudio();
+
 	//PLAY VIDEO
 	//jQuery('.videoLink').click();
-		
+
 });
