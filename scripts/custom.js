@@ -1155,7 +1155,7 @@ theWindow.resize(function(){
 	runReviews();
 
 	//PLAY AUDIO
-	if(!jQuery('body').hasClass('mobile-device')) playAudio();
+	//if(!jQuery('body').hasClass('mobile-device')) playAudio();
 
 	//PLAY VIDEO
 	//jQuery('.videoLink').click();
