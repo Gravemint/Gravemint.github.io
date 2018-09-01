@@ -986,11 +986,11 @@ body.mobile-device #audioControl {display: none;}
 #socialIcons a {
 	display: block;
 	position: relative;
-	width: 50px;
+	width: 28px;
 	text-align: center;
-	font-size: 125%;
+	font-size: 175%;
 	border-radius: 50%;
-	line-height: 50px;
+	line-height: 28px;
 	z-index: 1;
 	float: right;
 }
