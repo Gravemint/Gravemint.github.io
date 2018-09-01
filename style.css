@@ -988,7 +988,7 @@ body.mobile-device #audioControl {display: none;}
 	position: relative;
 	width: 50px;
 	text-align: center;
-	font-size: 350%;
+	font-size: 300%;
 	border-radius: 90%;
 	line-height: 32px;
 	z-index: 1;
