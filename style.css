@@ -327,7 +327,7 @@ body.full-screen-video #contentContainer {
 	z-index: 100;
 	position: absolute;
 	border: none;
-	max-width: 100%;
+	max-width: 150%;
 	margin: 30px 0 0 30px;
 	outline: none;
 	font-size: 200%;
@@ -339,7 +339,7 @@ body.full-screen-video #contentContainer {
 }
 #logo img {
 	display: block;
-	max-width: 100%;
+	max-width: 150%;
 	height: auto;
 	border-style:none;
 }
