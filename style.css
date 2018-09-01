@@ -979,7 +979,7 @@ body.mobile-device #audioControl {display: none;}
 /*---------------------------*/
 #socialIcons {
 	position: absolute;
-	bottom: 30px;
+	bottom: 25px;
 	right:15px;
 	z-index: 100;
 }
