@@ -1036,7 +1036,7 @@ body.mobile-device #audioControl {display: none;}
 	height: 0;
 	width: 0;
 	background: rgba(255,255,255,.15);
-	border-radius: 50%;
+	border-radius: 100%;
 	display: block;
 	content: '';
 	margin: 0;
