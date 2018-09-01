@@ -986,7 +986,7 @@ body.mobile-device #audioControl {display: none;}
 #socialIcons a {
 	display: block;
 	position: relative;
-	width: 20px;
+	width: 50px;
 	text-align: center;
 	font-size: 350%;
 	border-radius: 90%;
