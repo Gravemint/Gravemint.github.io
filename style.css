@@ -980,7 +980,7 @@ body.mobile-device #audioControl {display: none;}
 #socialIcons {
 	position: absolute;
 	bottom: 30px;
-	right:30px;
+	right:15px;
 	z-index: 100;
 }
 #socialIcons a {
