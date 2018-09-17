@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <!--PAGE TITLE-->
-<title>Contact | Gravemint</title>
+<title>About | Gravemint</title>
 
 <!--GOOGLE FONT CSS-->
 <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600' type='text/css' media='all' />
@@ -17,77 +17,45 @@
 <link rel='stylesheet' href='style.css' type='text/css' media='all' />
 <link rel='stylesheet' href='css/respond.css' type='text/css' media='all' />
 <link rel='stylesheet' href='font-awesome-4.3.0/css/font-awesome.min.css' type='text/css' media='all' />
-<link rel='stylesheet' href='css/formspree.css' type='text/css' media='all'
-
-
-
 
 <!--SITE URL SETTING FOR AJAX REQUESTS-->
-<script> var siteUrl = 'http://www.gravemint.com/contact'; </script>
+<script> var siteUrl = 'http://www.gravemint.com'; </script>
 
 </head>
 
-<body class="page page-template-page-center page-template-page-center-php ajax-on"></div>
+<body class="page page-template-page-center page-template-page-center-php ajax-on">
 
 <div id="contentContainer">
 
 	<!--LOGO-->
-	<a id="logo" href="http://www.gravemint.com"><img src="images/logo.png" alt="Gravemint" /></a><!--end logo-->
+	<a id="logo" href="http://gravemint.com"><img src="images/logo.png" alt="Gravemint" /></a><!--end logo-->
+
+	<!--MENU CONTROL-->
+	<div id="menu-control"><span></span></div>
 
 	<!--AJAX CONTAINER-->
 	<div id="ajax-content">
 
 		<!--PAGE INFO FOR UPDATING BODY CLASS AND DOC TITLE-->
-		<div id="page-info" data-page-title="Contact | Gravemint" class="page page-template-page-center page-template-page-center-php ajax-on"></div>
-
+		<div id="page-info" data-page-title="About | Gravemint" class="page page-template-page-center page-template-page-center-php ajax-on"></div>
 
 		<div id="pageContent" class="entry center-page page-page">
-
-<main class="container">
-  <header class="page-header">
-    <h1 id="page-title">Contact</h1>
-  </header>
-
-  <div class="contact">
-  <!--FORMSPREE-->
-
-
-  <div class=modal-body >
-
-    <form id="contactform" action="https://formspree.io/gravemint@outlook.com"
-      method="POST">
-        <div class="form-group">
-            <div class="input-group">
-			<p> Name </p>
-                <span class="input-group-addon"></span>
-                <input name="form-name-input" type="text" name="name" class="form-control" required>
-            </div>
-			<p> Your Email </p>
-            <div class="input-group">
-                <span class="input-group-addon"></span>
-                <input name="form-email-input" type="email" name="_replyto" class="form-control" required>
-            </div>
-			<p> Message </p>
-            <div class="input-group">
-                <span class="input-group-addon"></span>
-                <textarea name="form-description-input" name="description" class="form-control" rows="4" cols="60" required></textarea>
-            </div>
-            <input type="text" name="_gotcha" style="display:none" />
-            <input class="btn btn-success" data-dismiss="modal" type="submit" id="form-submit-btn" value="Submit">
-            <input type="hidden" name="_next" value="http://www.gravemint.com/thanks" onclick="FormSentConfirmation()"/>
-        </div>
-    </form>
-</div>
-
-
-    <!--END FORMSPREE-->
-</main>
+			<h1 id="page-title">About</h1>
+			<p>Gravemint is an electronic music artist focused on creating fantastical worlds using the suggestive force of sound design. To foster imagination and escapism through music is his goal.</p>
+			<p>Stream for free or buy his music using the links below. A response to any inquiry or comment is guaranteed on the social media platform of your choice!</p>
+			<p></p>
+			<p></p>
 		</div>
-
-
 
 	</div><!--END AJAX CONTAINER-->
 
+	<!--AUDIO PLAYER-->
+	<div id="audioControl" class="paused">
+		<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+	</div>
+	<audio id="audioPlayer">
+	  <source src="audio/Rain, Hello (Website Audio).m4a" type="audio/mpeg">
+	</audio>
 
 	<!--SOCIAL ICONS-->
 	<div id="socialIcons">
@@ -99,7 +67,6 @@
 		<a target="_blank" id="link-apple" data-title="Apple" href="https://itunes.apple.com/us/artist/gravemint/1279415284"><i class="fa fa-apple"></i></a>
 
 	</div>
-
 
 	<!--IMAGE SLIDESHOW-->
 	<div id="headerImages">
@@ -116,6 +83,35 @@
 
 
 
+<div id="sidebar">
+	<!--SIDEBAR LOGO-->
+	<a id="sidebar-logo" href="http://www.gravemint.com"><img src="images/logo.png" alt="Gravemint" /></a>
+
+	<!--MAIN MENU-->
+	<nav id="navigation" class="hasLogo">
+		<ul id="dropmenu" class="menu">
+			<li><a href="http://www.gravemint.com">Home</a></li>
+			<li><a href="http://www.gravemint.com/audio">Audio</a></li>
+			<li><a href="http://www.gravemint.com/video">Video</a></li>
+			<li><a href="http://www.gravemint.com/gallery">Gallery</a></li>
+			<li class="current-menu-item"><a href="http://www.gravemint.com/about">About</a></li>
+			<li><a href="http://www.gravemint.com/contact">Contact</a></li>
+		</ul>
+	</nav>
+
+	<!--WIDGET-->
+	<ul id="sidebar-widgets">
+		<li class="widget">
+
+
+			 <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:5c4jVMtMG21iRKAe0bUKBG&size=detail&theme=dark&show-count=0" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
+			<div class="textwidget">   ‍   </div>
+			<div class="textwidget">All artwork by <a href="https://www.instagram.com/mallcafes/">mallcafes</a></div>
+		</li>
+	</ul>
+
+</div><!--end sidebar-->
+
 <!--JavaScript-->
 <script type='text/javascript' src='scripts/jquery.js'></script>
 <script type='text/javascript' src='scripts/jquery-migrate.min.js'></script>
@@ -123,7 +119,6 @@
 <script type='text/javascript' src='scripts/spin.js'></script>
 <script type='text/javascript' src='scripts/custom.js'></script>
 <script type='text/javascript' src='scripts/retina.js'></script>
-<script type='text/javascript' src='scripts/formspree.js'></script>
 
 </body>
 </html>
