@@ -976,14 +976,17 @@ body.mobile-device #audioControl {display: none;}
 	right:15px;
 	z-index: 100;
 }
+
+
+
 #socialIcons a {
 	display: block;
 	position: relative;
-	width: 50px;
+	width: 40px;
 	text-align: center;
-	font-size: 250%;
+	font-size: 225%;
 	border-radius: 100%;
-	line-height: 32px;
+	line-height: 14px;
 	z-index: 1;
 	float: right;
 }
@@ -1041,20 +1044,23 @@ body.mobile-device #audioControl {display: none;}
 }
 #socialIcons #link-rss:after {background-color: #FB7629;}
 #socialIcons #link-facebook:after {background-color: #3A5795;}
+#socialIcons #link-email:after {background-color: #8942f4;}
+#socialIcons #link-bandcamp:after {background-color: #629aa9;}
+#socialIcons #link-soundcloud:after {background-color: #ff7700;}
 #socialIcons #link-twitter:after {background-color: #54ABEE;}
 #socialIcons #link-google-plus:after {background-color: #DC4A38;}
 #socialIcons #link-youtube:after {background-color: #CC181E;}
 #socialIcons #link-vimeo:after {background-color: #17B3E8;}
-#socialIcons #link-instagram:after {background-color: #235D83;}
+#socialIcons #link-instagram:after {background-color: #515BD4;}
 #socialIcons #link-tumblr:after {background-color: #34465D;}
 #socialIcons #link-flickr:after {background-color: #0063DB;}
 #socialIcons #link-spotify:after {background-color: #1DB954;}
-#socialIcons #link-apple:after {background-color: #7D7D7D;}
+#socialIcons #link-apple:after {background-color: #282828;}
 
 #socialIcons a:hover:after {
 	width: 40px;
 	height: 40px;
-	margin: -19px 0 0 -20px;
+	margin: -20px 0 0 -20.25px;
 }
 
 body.search-open #socialIcons a {
